@@ -2184,6 +2184,11 @@ private:
               "    scanf(\"%i\", \"abc\" + 1);\n"
               "}\n");
         ASSERT_EQUALS("[test.cpp:2]: (warning) %i in format string (no. 1) requires 'int *' but the argument type is 'const char *'.\n", errout_str());
+
+        check("void f(const int *val) {\n"
+              "    scanf(\"%i\", val);\n"
+              "}\n");
+        ASSERT_EQUALS("[test.cpp:2]: (warning) %i in format string (no. 1) requires 'int *' but the argument type is 'const signed int *'.\n", errout_str());
     }
 
     void testPrintfArgument() {
